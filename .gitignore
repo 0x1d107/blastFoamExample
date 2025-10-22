@@ -1,0 +1,7 @@
+blastfoam
+*/*
+!*/system
+!*/constant
+!*/0
+*/constant/polyMesh
+!report/*
