@@ -33,7 +33,7 @@ boundaryField
         type            zeroGradient;
     }
 
-    outlet
+    inlet
     {
         type            zeroGradient;
     }
