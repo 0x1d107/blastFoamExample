@@ -32,7 +32,9 @@ divSchemes
 {
     default         none;
     div(tauMC)      Gauss linear;
-    div(alphaRhoPhi.RDX,lambda.RDX) Riemann;
+    div(alphaRhoPhi.c4,lambda.c4) Riemann;
+    div(alphaRhoPhi.air,lambda.air) Riemann;
+    div(alphaRhoPhi.dust,lambda.dust) Riemann;
 }
 
 laplacianSchemes
