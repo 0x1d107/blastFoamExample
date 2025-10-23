@@ -15,38 +15,34 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-fields (alpha.RDX);
+fields (alpha.c4);
 nBufferLayers 1;
 
 
 defaultFieldValues
 (
-    volScalarFieldValue alpha.gas       1
-    volScalarFieldValue alpha.RDX       0
+    volScalarFieldValue alpha.air       1
+    volScalarFieldValue alpha.c4        0
+	volScalarFieldValue alpha.dust		0
 );
 
 regions
 (
     cylinderToCell
     {
-        level 4;
-        refineInternal yes;
+        //level 4;
+        //refineInternal yes;
 
-        p1 (0 0.01 0);
-        p2 (0 0.5 0);
+        p1 (-0.35 0.01 0);
+        p2 (-0.35 0.01 0.001);
         radius 0.05;
 
-        backup
-        {
-            p1 (0 0 0);
-            p2 (0 1 0);
-            radius 0.25;
-        }
 
         fieldValues
         (
-            volScalarFieldValue alpha.RDX   1
-            volScalarFieldValue alpha.gas   0
+			volScalarFieldValue alpha.air       0
+			volScalarFieldValue alpha.c4        1
+			volScalarFieldValue alpha.dust		0
         );
     }
  );

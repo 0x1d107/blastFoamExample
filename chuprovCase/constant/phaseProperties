@@ -15,7 +15,86 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-phases (dust gas);
+phases (c4 dust air);
+
+c4
+{
+    type detonating;
+    reactants
+    {
+        thermoType
+        {
+            transport   const;
+            thermo      eConst;
+            equationOfState Murnaghan;
+        }
+        equationOfState
+        {
+            Gamma           0.25;
+            pRef            101298;
+            rho0            1601;
+            K0              0;
+        }
+        specie
+        {
+            molWeight       55.0;
+        }
+        transport
+        {
+            mu              0;              // Viscosity
+            Pr              1;              // Prandtl number
+        }
+        thermodynamics
+        {
+            Cv              1400;           // Heat capacity
+            Hf              0.0;
+        }
+    }
+    products
+    {
+        thermoType
+        {
+            transport   const;
+            thermo      eConst;
+            equationOfState JWL;
+        }
+        equationOfState
+        {
+            rho0      1601;
+            A         609.77e9;
+            B         12.95e9;
+            R1        4.50;
+            R2        1.4;
+            omega     0.25;
+        }
+        specie
+        {
+            molWeight       55.0;
+        }
+        transport
+        {
+            mu              0;              // Viscosity
+            Pr              1;              // Prandtl number
+        }
+        thermodynamics
+        {
+            Cv              1400;           // Heat capacity
+            Hf              0.0;
+        }
+    }
+
+    activationModel linear;
+    initiation
+    {
+        E0              9.0e9;   // detonation energy in units of pressure
+        points     ((0 0 0.5));     // TODO:CHANGE ME Detonation points
+        vDet       7850;            // Detonation velocity [m/s]
+        useCOM yes;                 // Overridden by the detonation points
+    }
+
+    residualRho     1e-6;           // Minimum density of the phase
+    residualAlpha   1e-10;          // Minimum volume fraction used for division
+}
 
 dust
 {
@@ -51,7 +130,7 @@ dust
     residualAlpha   1e-6;
 }
 
-gas
+air
 {
     type basic;
     thermoType
