@@ -30,9 +30,7 @@ boundaryField
 
     outlet
     {
-        type            zeroGradient;
-        inletValue      uniform (0 0 0);
-        value           uniform (0 0 0);
+        type            slip;
     }
 
     inlet

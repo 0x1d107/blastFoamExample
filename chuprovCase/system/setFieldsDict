@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-fields (alpha.c4);
+fields (alpha.air,alpha.c4,alpha.dust);
 nBufferLayers 1;
 
 
@@ -33,8 +33,8 @@ regions
         //level 4;
         //refineInternal yes;
 
-        p1 (-0.35 0.03 0);
-        p2 (-0.35 0.03 0.001);
+        p1 (-0.15 0.03 0);
+        p2 (-0.15 0.03 0.001);
         radius 0.01;
 
 
@@ -49,9 +49,9 @@ regions
     	box (0.02 0 0) (0.17 0.02 0.001) ;
         fieldValues
         (
-			volScalarFieldValue alpha.air       0
+			volScalarFieldValue alpha.air       0.5
 			volScalarFieldValue alpha.c4        0
-			volScalarFieldValue alpha.dust		1
+			volScalarFieldValue alpha.dust		0.5
         );
     }
  );

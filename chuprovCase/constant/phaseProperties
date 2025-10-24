@@ -87,7 +87,7 @@ c4
     initiation
     {
         E0              9.0e9;   // detonation energy in units of pressure
-        points     ((-0.35 0.03 5e-4));     // TODO:CHANGE ME Detonation points
+        points     ((-0.15 0.03 5e-4));     // TODO:CHANGE ME Detonation points
         vDet       7850;            // Detonation velocity [m/s]
         useCOM yes;                 // Overridden by the detonation points
     }
@@ -103,12 +103,12 @@ dust
     {
         transport   const;
         thermo      eConst;
-        equationOfState stiffenedGas;
+        equationOfState idealGas;
     }
     equationOfState
     {
         gamma                         1.4;            // Heat capactiy ratio
-        a 				10000;
+        //a 				10000;
     }
     specie
     {
