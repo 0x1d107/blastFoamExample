@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-phases (c4 dust air);
+phases (dust air);
 
 c4
 {
@@ -88,7 +88,7 @@ c4
     {
         E0              9.0e9;   // detonation energy in units of pressure
         points     ((-0.15 0.03 5e-4));     // TODO:CHANGE ME Detonation points
-        vDet       7850;            // Detonation velocity [m/s]
+        vDet       785;            // Detonation velocity [m/s]
         useCOM yes;                 // Overridden by the detonation points
     }
 
