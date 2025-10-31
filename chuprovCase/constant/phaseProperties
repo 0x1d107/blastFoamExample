@@ -17,88 +17,10 @@ FoamFile
 
 phases (dust air);
 
-c4
-{
-    type detonating;
-    reactants
-    {
-        thermoType
-        {
-            transport   const;
-            thermo      eConst;
-            equationOfState Murnaghan;
-        }
-        equationOfState
-        {
-            Gamma           0.25;
-            pRef            101298;
-            rho0            1601;
-            K0              0;
-        }
-        specie
-        {
-            molWeight       55.0;
-        }
-        transport
-        {
-            mu              0;              // Viscosity
-            Pr              1;              // Prandtl number
-        }
-        thermodynamics
-        {
-            Cv              1400;           // Heat capacity
-            Hf              0.0;
-        }
-    }
-    products
-    {
-        thermoType
-        {
-            transport   const;
-            thermo      eConst;
-            equationOfState JWL;
-        }
-        equationOfState
-        {
-            rho0      1601;
-            A         609.77e9;
-            B         12.95e9;
-            R1        4.50;
-            R2        1.4;
-            omega     0.25;
-        }
-        specie
-        {
-            molWeight       55.0;
-        }
-        transport
-        {
-            mu              0;              // Viscosity
-            Pr              1;              // Prandtl number
-        }
-        thermodynamics
-        {
-            Cv              1400;           // Heat capacity
-            Hf              0.0;
-        }
-    }
-
-    activationModel linear;
-    initiation
-    {
-        E0              9.0e9;   // detonation energy in units of pressure
-        points     ((-0.15 0.03 5e-4));     // TODO:CHANGE ME Detonation points
-        vDet       785;            // Detonation velocity [m/s]
-        useCOM yes;                 // Overridden by the detonation points
-    }
-
-    residualRho     1e-6;           // Minimum density of the phase
-    residualAlpha   1e-10;          // Minimum volume fraction used for division
-}
-
+/*
 dust
 {
-    type basic;
+    type granular;
     thermoType
     {
         transport   const;
@@ -128,6 +50,55 @@ dust
 
     residualRho     1e-6;
     residualAlpha   1e-6;
+}
+*/
+dust
+{
+    phaseType        granular;
+
+    diameterModel constant;
+    constantDiameterCoeffs
+    {
+        d           50e-6;
+    }
+
+    alphaMax    0.65;
+    alphaMinFriction 0.5;
+
+    type basic;
+    thermoType
+    {
+        transport   const;
+        thermo      eConst;
+        equationOfState stiffenedGas;
+    }
+    specie
+    {
+        molWeight 100.0;
+    }
+    equationOfState
+    {
+        gamma	1.4;
+		a 	0;
+    }
+    transport
+    {
+        mu	0;
+		Pr 1;
+    }
+    thermodynamics
+    {
+        Cv          987;           // Heat capacity
+        Hf          0.0;
+    }
+
+    residualAlpha 1e-6;
+    residualRho   1e-6;
+
+    kineticTheoryCoeffs
+    {
+        e           0.9;
+    }
 }
 
 air
@@ -164,4 +135,94 @@ air
 }
 
 
+blending
+{
+    default
+    {
+        type none;
+        continuousPhase air;
+    }
+}
+
+interfacialPressure
+(
+    (air and dust)
+    {
+        type single;
+        phase air;
+    }
+);
+
+interfacialVelocity
+(
+    (air and dust)
+    {
+        type single;
+        phase dust;
+    }
+);
+
+aspectRatio
+(
+);
+
+drag
+(
+    (dust in air)
+    {
+        type GidaspowErgunWenYu;
+        residualRe 1e-3;
+        swarmCorrection
+        {
+            type none;
+        }
+    }
+);
+
+virtualMass
+(
+);
+
+heatTransfer
+(
+    (particles in gas)
+    {
+        type RanzMarshall;
+        NuModel Gunn;
+    }
+);
+
+lift
+(
+);
+
+wallLubrication
+(
+);
+
+turbulentDispersion
+(
+);
+
+kineticTheory
+{
+    residualAlpha       1e-6;
+
+    radialModel SinclairJackson;
+    viscosityModel none;
+    conductivityModel Syamlal;
+    granularPressureModel Lun;
+    frictionalStressModel JohnsonJackson;
+
+    JohnsonJacksonCoeffs
+    {
+        alphaMinFriction        0.5;
+        alphaMinFrictionByAlphap 0.9;
+        Fr                      0.05;
+        eta                     2;
+        p                       5;
+        phi                     28.5;
+        alphaDeltaMin           1e-6;
+    }
+}
 // ************************************************************************* //
