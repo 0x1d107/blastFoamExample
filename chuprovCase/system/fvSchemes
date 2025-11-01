@@ -16,6 +16,14 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 fluxScheme      HLLC;
+fluxSchemes {
+	air {
+		fluxScheme HLLC;
+	}
+	dust {
+		fluxScheme AUSM+Up;
+	}
+}
 
 ddtSchemes
 {

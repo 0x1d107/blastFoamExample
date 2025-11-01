@@ -63,14 +63,14 @@ dust
     }
 
     alphaMax    0.65;
-    alphaMinFriction 0.5;
+    alphaMinFriction 0.4;
 
     type basic;
     thermoType
     {
-        transport   const;
+        transport   constIso;
         thermo      eConst;
-        equationOfState stiffenedGas;
+        equationOfState rhoConst;
     }
     specie
     {
@@ -78,13 +78,11 @@ dust
     }
     equationOfState
     {
-        gamma	1.4;
-		a 	0;
+		rho0 700;
     }
     transport
     {
-        mu	0;
-		Pr 1;
+        kappa 0.36;
     }
     thermodynamics
     {
@@ -103,6 +101,7 @@ dust
 
 air
 {
+	phaseType fluid;
     type basic;
     thermoType
     {
