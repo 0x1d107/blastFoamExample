@@ -103,6 +103,12 @@ air
 {
 	phaseType fluid;
     type basic;
+	diameterModel constant;
+	constantDiameterCoeffs
+	{
+		d  		1e-9;
+	}
+
     thermoType
     {
         transport   const;
@@ -119,7 +125,7 @@ air
     }
     transport
     {
-        mu              0;
+        mu              1.81e-5;
         Pr              1;
     }
     thermodynamics
@@ -165,6 +171,13 @@ aspectRatio
 (
 );
 
+solveDragODE off;
+dragODECoeffs
+{
+    solver seulex;
+    relTol 1e-3;
+
+}
 drag
 (
     (dust in air)
@@ -184,7 +197,7 @@ virtualMass
 
 heatTransfer
 (
-    (particles in gas)
+    (dust in air)
     {
         type RanzMarshall;
         NuModel Gunn;

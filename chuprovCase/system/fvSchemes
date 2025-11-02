@@ -43,6 +43,7 @@ divSchemes
     div(alphaRhoPhi.c4,lambda.c4) Riemann;
     div(alphaRhoPhi.air,lambda.air) Riemann;
     div(alphaRhoPhi.dust,lambda.dust) Riemann;
+    div((((alpha.air*rho.air)*nuEff.air)*dev2(T(grad(U.air))))) Gauss linear;
 }
 
 laplacianSchemes

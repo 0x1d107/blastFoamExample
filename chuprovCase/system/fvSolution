@@ -19,7 +19,12 @@ solvers
 {
     "(rho|rhoU|rhoE|alpha|.*)"
     {
-        solver          diagonal;
+        solver          PBiCGStab;
+        preconditioner  DIC;
+        nSweeps         3;;
+        tolerance       1e-09;
+        relTol          0;
+        minIter         1;
     }
 
     "(U|e|epsilon|k)"
