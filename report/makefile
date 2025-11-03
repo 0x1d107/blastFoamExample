@@ -1,3 +1,3 @@
 all: mavlyutov.docx
 mavlyutov.docx: mavlyutov.md article.bib custom-reference.docx
-	pandoc -s --cite $< --reference-doc=custom-reference.docx -o $@
+	pandoc -s  $< --reference-doc=custom-reference.docx --filter pandoc-crossref --citeproc  -o $@
